@@ -5,10 +5,11 @@ on:
 jobs:
   test:
     strategy:
+      fail-fast: false
       matrix: { os: [ubuntu-latest, macos-latest] }
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: dtolnay/rust-toolchain@stable
         with: { components: clippy }
       - uses: Swatinem/rust-cache@v2

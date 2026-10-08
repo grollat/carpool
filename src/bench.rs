@@ -57,7 +57,7 @@ pub struct BenchArgs {
 
 enum Conn {
     Carpool { lines: Lines<BufReader<tokio::net::unix::OwnedReadHalf>>, w: tokio::net::unix::OwnedWriteHalf },
-    Direct { lines: Lines<BufReader<tokio::process::ChildStdout>>, w: tokio::process::ChildStdin, _child: tokio::process::Child },
+    Direct { lines: Lines<BufReader<tokio::process::ChildStdout>>, w: tokio::process::ChildStdin, _child: Box<tokio::process::Child> },
 }
 
 impl Conn {
@@ -132,7 +132,7 @@ async fn connect(ctx: &Ctx) -> Result<Conn> {
         }
         let w = child.stdin.take().unwrap();
         let lines = BufReader::new(child.stdout.take().unwrap()).lines();
-        return Ok(Conn::Direct { lines, w, _child: child });
+        return Ok(Conn::Direct { lines, w, _child: Box::new(child) });
     }
     let stream = UnixStream::connect(paths::socket()).await.context("connecting to daemon")?;
     let (rd, mut w) = stream.into_split();

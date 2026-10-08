@@ -4,6 +4,6 @@
   "match": ["npm:@kimsungwhee/apple-docs-mcp"],
   "isolation": "shared",
   "reason": "Only caches public Apple documentation, which benefits from sharing.",
-  "partition": { "env": ["DEFAULT_ACCEPT_LANGUAGE", "DISABLE_DNT", "DISABLE_LANGUAGE_ROTATION", "DISABLE_SEC_FETCH", "SIMPLE_HEADERS_MODE", "MCP_DEBUG"], "cwd": false },
+  "partition": { "env": ["DEFAULT_ACCEPT_LANGUAGE", "DISABLE_DNT", "DISABLE_LANGUAGE_ROTATION", "DISABLE_SEC_FETCH", "SIMPLE_HEADERS_MODE", "MCP_DEBUG", "NODE_ENV"], "cwd": false },
   "scaling": { "maxConcurrentRequests": 8, "maxInstances": 4 }
 }
