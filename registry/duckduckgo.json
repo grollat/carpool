@@ -1,0 +1,9 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grollat/carpool/main/schema/carpool.schema.json",
+  "specVersion": "1",
+  "match": ["pypi:duckduckgo-mcp-server"],
+  "isolation": "shared",
+  "reason": "Rate limiters and the page cache are lock-protected and hold only public data; sharing makes the rate limit apply machine-wide, which is what DuckDuckGo expects.",
+  "partition": { "env": ["DDG_*"], "cwd": false },
+  "scaling": { "maxConcurrentRequests": 4, "maxInstances": 2 }
+}

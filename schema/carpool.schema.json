@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/grollat/carpool/main/schema/carpool.schema.json",
+  "title": "Carpool manifest",
+  "description": "Declares whether an MCP server may be shared between client sessions, and how it scales. See spec/SPEC.md.",
+  "type": "object",
+  "required": ["isolation"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "specVersion": { "const": "1", "default": "1" },
+    "isolation": {
+      "enum": ["session", "shared"],
+      "description": "session: one dedicated process per client session (the default for servers without a manifest). shared: one process may serve many sessions concurrently."
+    },
+    "reason": { "type": "string", "description": "One sentence explaining the choice; shown to operators." },
+    "appliesTo": { "type": "string", "description": "Semver range of server versions this manifest describes, e.g. \">=2.1.0\"." },
+    "match": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^(npm|pypi|oci|path|cmd):.+" },
+      "description": "Registries and operator overrides only: server identities this manifest applies to."
+    },
+    "partition": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "env": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[A-Za-z_][A-Za-z0-9_]*\\*?$" },
+          "description": "Environment variables the server reads. Only these (plus a baseline) reach shared instances, and sessions share only when their values match. A trailing * matches a prefix."
+        },
+        "cwd": { "type": "boolean", "default": true, "description": "Whether the working directory is part of the partition." }
+      }
+    },
+    "scaling": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "maxConcurrentRequests": { "type": "integer", "minimum": 1, "default": 16 },
+        "targetConcurrentRequests": { "type": "integer", "minimum": 1 },
+        "minInstances": { "type": "integer", "minimum": 0, "default": 0 },
+        "maxInstances": { "type": "integer", "minimum": 1, "default": 4 },
+        "scaleDownAfterSeconds": { "type": "integer", "minimum": 0, "default": 60 },
+        "idleTimeoutSeconds": { "type": "integer", "minimum": 0, "default": 300 },
+        "startupTimeoutSeconds": { "type": "integer", "minimum": 1, "default": 60 },
+        "maxRequestsPerInstance": { "type": "integer", "minimum": 1 },
+        "maxMemoryMb": { "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}

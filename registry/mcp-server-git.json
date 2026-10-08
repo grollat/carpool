@@ -1,0 +1,9 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grollat/carpool/main/schema/carpool.schema.json",
+  "specVersion": "1",
+  "match": ["pypi:mcp-server-git", "oci:mcp/git"],
+  "isolation": "shared",
+  "reason": "No in-memory state; relative repo paths resolve against cwd, so only sessions in the same directory (and same --repository) share.",
+  "partition": { "cwd": true },
+  "scaling": { "maxConcurrentRequests": 4, "maxInstances": 4 }
+}

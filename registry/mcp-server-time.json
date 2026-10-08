@@ -1,0 +1,9 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grollat/carpool/main/schema/carpool.schema.json",
+  "specVersion": "1",
+  "match": ["pypi:mcp-server-time", "oci:mcp/time"],
+  "isolation": "shared",
+  "reason": "Pure functions over the clock and tz database; no state between calls.",
+  "partition": { "env": ["TZ"], "cwd": false },
+  "scaling": { "maxConcurrentRequests": 16, "maxInstances": 2 }
+}

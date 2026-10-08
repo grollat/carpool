@@ -1,0 +1,10 @@
+[mcp_servers.time]
+command = "carpool"
+args = ["run", "--name", "time", "--", "uvx", "mcp-server-time"]
+startup_timeout_sec = 60
+
+[mcp_servers.github]
+command = "carpool"
+args = ["run", "--name", "github", "--", "docker", "run", "-i", "--rm", "-e", "GITHUB_PERSONAL_ACCESS_TOKEN", "ghcr.io/github/github-mcp-server"]
+env_vars = ["GITHUB_PERSONAL_ACCESS_TOKEN"]
+startup_timeout_sec = 60

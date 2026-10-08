@@ -1,0 +1,9 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grollat/carpool/main/schema/carpool.schema.json",
+  "specVersion": "1",
+  "match": ["pypi:wikipedia-mcp"],
+  "isolation": "shared",
+  "reason": "Client is configured once at startup and only caches public data. Loads .env from cwd, so cwd is part of the partition.",
+  "partition": { "env": ["WIKIPEDIA_*"], "cwd": true },
+  "scaling": { "maxConcurrentRequests": 8, "maxInstances": 4 }
+}

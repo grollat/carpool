@@ -1,0 +1,9 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grollat/carpool/main/schema/carpool.schema.json",
+  "specVersion": "1",
+  "match": ["pypi:mcp-server-fetch", "oci:mcp/fetch"],
+  "isolation": "shared",
+  "reason": "Each call creates its own HTTP client; nothing is cached or remembered.",
+  "partition": { "cwd": false },
+  "scaling": { "maxConcurrentRequests": 8, "maxInstances": 4 }
+}

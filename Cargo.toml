@@ -1,0 +1,37 @@
+[package]
+name = "carpool-mcp"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+description = "Run 100+ AI agent sessions on one machine without 100x MCP server processes. Pools, shares and autoscales MCP servers that declare they are safe to share."
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+keywords = ["mcp", "model-context-protocol", "agents", "claude", "codex"]
+categories = ["command-line-utilities", "development-tools"]
+
+[[bin]]
+name = "carpool"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = "1"
+clap = { version = "4", features = ["derive", "env"] }
+libc = "0.2"
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+semver = "1"
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "net", "io-util", "io-std", "process", "sync", "time", "signal", "fs"] }
+toml = "0.8"
+toml_edit = "0.22"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+
+[dev-dependencies]
+tempfile = "3"
+
+[profile.release]
+lto = true
+codegen-units = 1
+strip = true
+opt-level = 3

@@ -1,0 +1,7 @@
+{
+  "mcpServers": {
+    "time":     { "type": "stdio", "command": "carpool", "args": ["run", "--name", "time", "--", "uvx", "mcp-server-time"] },
+    "context7": { "type": "stdio", "command": "carpool", "args": ["run", "--name", "context7", "--", "npx", "-y", "@upstash/context7-mcp"] },
+    "thinking": { "type": "stdio", "command": "carpool", "args": ["run", "--name", "thinking", "--", "npx", "-y", "@modelcontextprotocol/server-sequential-thinking"] }
+  }
+}

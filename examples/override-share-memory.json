@@ -1,0 +1,7 @@
+{
+  "match": ["npm:@modelcontextprotocol/server-memory"],
+  "isolation": "shared",
+  "reason": "Our agents intentionally share one knowledge graph; writes are serialized by the server.",
+  "partition": { "env": ["MEMORY_FILE_PATH"], "cwd": false },
+  "scaling": { "maxConcurrentRequests": 4, "maxInstances": 1 }
+}

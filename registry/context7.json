@@ -1,0 +1,9 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grollat/carpool/main/schema/carpool.schema.json",
+  "specVersion": "1",
+  "match": ["npm:@upstash/context7-mcp"],
+  "isolation": "shared",
+  "reason": "Stateless documentation lookups; the API key is process-wide, so sessions only share when they use the same key.",
+  "partition": { "env": ["CONTEXT7_API_KEY", "CONTEXT7_API_URL"], "cwd": false },
+  "scaling": { "maxConcurrentRequests": 8, "maxInstances": 4 }
+}

@@ -1,0 +1,9 @@
+{
+  "$schema": "https://raw.githubusercontent.com/grollat/carpool/main/schema/carpool.schema.json",
+  "specVersion": "1",
+  "match": ["pypi:mcp-server-calculator"],
+  "isolation": "shared",
+  "reason": "Stateless, but evaluation blocks the event loop; one request per instance and let the pool scale out.",
+  "partition": { "cwd": false },
+  "scaling": { "maxConcurrentRequests": 1, "maxInstances": 6, "scaleDownAfterSeconds": 30 }
+}
